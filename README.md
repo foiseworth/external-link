@@ -1,5 +1,6 @@
 # External Link
 [![npm version](https://badge.fury.io/js/external-link.svg)](http://badge.fury.io/js/external-link)
+[![Build Status](https://travis-ci.org/foiseworth/external-link.svg?branch=master)](https://travis-ci.org/foiseworth/external-link)
 
 A simple function that tells you whether a link DOM node is 'external'.
 
