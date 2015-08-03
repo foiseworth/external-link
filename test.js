@@ -63,7 +63,7 @@ describe('External link', function() {
     });
   });
 
-  it('should know a link onwithout a href is not external', function(done) {
+  it('should know a link without a href is not external', function(done) {
     makeLinkNode({url: ''}, function(err, link) {
       assert.equal(external(link), false);
       done();
