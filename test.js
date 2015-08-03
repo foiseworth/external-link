@@ -63,14 +63,21 @@ describe('External link', function() {
     });
   });
 
-  it('should know a name anchor link on the current page is not external', function(done) {
+  it('should know a link onwithout a href is not external', function(done) {
+    makeLinkNode({url: ''}, function(err, link) {
+      assert.equal(external(link), false);
+      done();
+    });
+  });
+
+  it('should know a named anchor link on the current page is not external', function(done) {
     makeLinkNode({url: '#awesome'}, function(err, link) {
       assert.equal(external(link), false);
       done();
     });
   });
 
-  it('should know a name anchor link on another page is not external', function(done) {
+  it('should know a named anchor link on another page is not external', function(done) {
     makeLinkNode({url: 'somedire/page#awesome'}, function(err, link) {
       assert.equal(external(link), false);
       done();
@@ -106,6 +113,13 @@ describe('External link', function() {
   });
 
   it('should know a absoloute link is external', function(done) {
+    makeLinkNode({url: 'http://another-app.com'}, function(err, link) {
+      assert(external(link));
+      done();
+    });
+  });
+
+  it('should know a absoloute secure link is external', function(done) {
     makeLinkNode({url: 'https://github.com/foiseworth'}, function(err, link) {
       assert(external(link));
       done();
