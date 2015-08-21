@@ -9,7 +9,7 @@ var assert = require('assert');
 
 function makeLinkNode(options, cb) {
   options = extend(false, {
-    url: 'http://aboutandrew.co.uk',
+    url: '/',
     pageUrl: 'http://github.com',
     rel: '',
     target: ''
@@ -147,15 +147,32 @@ describe('External link', function() {
     });
   });
 
-  it('should know a link with target="_blank" is external', function(done) {
-    makeLinkNode({url: 'http://github.com', target: '_blank'}, function(err, link) {
-      assert(external(link));
-      done();
+  context('when a link has a target attribute', function() {
+    it('should know it is external', function(done) {
+      makeLinkNode({target: 'new'}, function(err, link) {
+        assert(external(link));
+        done();
+      });
+    });
+
+    it('should know it is not external if it equals _blank', function(done) {
+      makeLinkNode({target: '_blank'}, function(err, link) {
+        assert(external(link));
+        done();
+      });
+    });
+
+    it('should know it is not external if it equals _self', function(done) {
+      makeLinkNode({target: '_self'}, function(err, link) {
+        assert.equal(external(link), false);
+        done();
+      });
     });
   });
 
+
   it('should know a link with rel="external" is external', function(done) {
-    makeLinkNode({url: 'http://github.com', rel: 'external'}, function(err, link) {
+    makeLinkNode({rel: 'external'}, function(err, link) {
       assert(external(link));
       done();
     });
